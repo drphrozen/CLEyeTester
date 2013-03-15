@@ -34,18 +34,18 @@
       this.ledButton = new System.Windows.Forms.Button();
       this.stopButton = new System.Windows.Forms.Button();
       this.startButton = new System.Windows.Forms.Button();
+      this.label1 = new System.Windows.Forms.Label();
       this.propertiesGroupBox = new System.Windows.Forms.GroupBox();
+      this.browseButton = new System.Windows.Forms.Button();
+      this.outputTextBox = new System.Windows.Forms.TextBox();
+      this.outputCheckBox = new System.Windows.Forms.CheckBox();
       this.propertiesDataGridView = new System.Windows.Forms.DataGridView();
       this.groupBox = new System.Windows.Forms.GroupBox();
       this.fpsComboBox = new System.Windows.Forms.ComboBox();
       this.colorModeComboBox = new System.Windows.Forms.ComboBox();
       this.resolutionComboBox = new System.Windows.Forms.ComboBox();
       this.comboBox = new System.Windows.Forms.ComboBox();
-      this.label1 = new System.Windows.Forms.Label();
-      this.outputCheckBox = new System.Windows.Forms.CheckBox();
-      this.outputTextBox = new System.Windows.Forms.TextBox();
       this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-      this.browseButton = new System.Windows.Forms.Button();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
       this.splitContainer.Panel1.SuspendLayout();
@@ -137,6 +137,15 @@
       this.startButton.UseVisualStyleBackColor = true;
       this.startButton.Click += new System.EventHandler(this.StartButtonClick);
       // 
+      // label1
+      // 
+      this.label1.AutoSize = true;
+      this.label1.Location = new System.Drawing.Point(6, 9);
+      this.label1.Name = "label1";
+      this.label1.Size = new System.Drawing.Size(43, 13);
+      this.label1.TabIndex = 6;
+      this.label1.Text = "Camera";
+      // 
       // propertiesGroupBox
       // 
       this.propertiesGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -153,6 +162,37 @@
       this.propertiesGroupBox.TabStop = false;
       this.propertiesGroupBox.Text = "Properties";
       // 
+      // browseButton
+      // 
+      this.browseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+      this.browseButton.Location = new System.Drawing.Point(354, 382);
+      this.browseButton.Name = "browseButton";
+      this.browseButton.Size = new System.Drawing.Size(34, 23);
+      this.browseButton.TabIndex = 4;
+      this.browseButton.Text = "...";
+      this.browseButton.UseVisualStyleBackColor = true;
+      // 
+      // outputTextBox
+      // 
+      this.outputTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.outputTextBox.Location = new System.Drawing.Point(70, 384);
+      this.outputTextBox.Name = "outputTextBox";
+      this.outputTextBox.Size = new System.Drawing.Size(278, 20);
+      this.outputTextBox.TabIndex = 3;
+      this.outputTextBox.Text = "CLEyeTester{0:yyyyMMddTHHmmssfff}.avi";
+      // 
+      // outputCheckBox
+      // 
+      this.outputCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.outputCheckBox.AutoSize = true;
+      this.outputCheckBox.Location = new System.Drawing.Point(6, 386);
+      this.outputCheckBox.Name = "outputCheckBox";
+      this.outputCheckBox.Size = new System.Drawing.Size(58, 17);
+      this.outputCheckBox.TabIndex = 2;
+      this.outputCheckBox.Text = "Output";
+      this.outputCheckBox.UseVisualStyleBackColor = true;
+      // 
       // propertiesDataGridView
       // 
       this.propertiesDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -167,7 +207,7 @@
       this.propertiesDataGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
       this.propertiesDataGridView.RowHeadersWidth = 4;
       this.propertiesDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-      this.propertiesDataGridView.Size = new System.Drawing.Size(382, 236);
+      this.propertiesDataGridView.Size = new System.Drawing.Size(382, 353);
       this.propertiesDataGridView.TabIndex = 1;
       // 
       // groupBox
@@ -227,46 +267,6 @@
       this.comboBox.Name = "comboBox";
       this.comboBox.Size = new System.Drawing.Size(345, 21);
       this.comboBox.TabIndex = 3;
-      // 
-      // label1
-      // 
-      this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(6, 9);
-      this.label1.Name = "label1";
-      this.label1.Size = new System.Drawing.Size(43, 13);
-      this.label1.TabIndex = 6;
-      this.label1.Text = "Camera";
-      // 
-      // outputCheckBox
-      // 
-      this.outputCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-      this.outputCheckBox.AutoSize = true;
-      this.outputCheckBox.Location = new System.Drawing.Point(6, 386);
-      this.outputCheckBox.Name = "outputCheckBox";
-      this.outputCheckBox.Size = new System.Drawing.Size(58, 17);
-      this.outputCheckBox.TabIndex = 2;
-      this.outputCheckBox.Text = "Output";
-      this.outputCheckBox.UseVisualStyleBackColor = true;
-      // 
-      // outputTextBox
-      // 
-      this.outputTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.outputTextBox.Location = new System.Drawing.Point(70, 384);
-      this.outputTextBox.Name = "outputTextBox";
-      this.outputTextBox.Size = new System.Drawing.Size(278, 20);
-      this.outputTextBox.TabIndex = 3;
-      this.outputTextBox.Text = "CLEyeTester{0:yyyyMMddTHHmmssfff}.avi";
-      // 
-      // browseButton
-      // 
-      this.browseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-      this.browseButton.Location = new System.Drawing.Point(354, 382);
-      this.browseButton.Name = "browseButton";
-      this.browseButton.Size = new System.Drawing.Size(34, 23);
-      this.browseButton.TabIndex = 4;
-      this.browseButton.Text = "...";
-      this.browseButton.UseVisualStyleBackColor = true;
       // 
       // MainForm
       // 

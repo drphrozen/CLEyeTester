@@ -39,8 +39,7 @@ namespace CLEye
 
     #region [ Variables ]
     private IntPtr _camera = IntPtr.Zero;
-    private IntPtr _ptrBmpPixels;
-    private Bitmap _bitmap;
+    private List<IntPtr> _bitmaps = new List<IntPtr>(16);
     #endregion
 
     public void Open(int cameraId, CLEyeCameraColorMode colorMode, CLEyeCameraResolution resolution, float fps)
@@ -74,7 +73,6 @@ namespace CLEye
       _camera = CLEyeCreateCamera(uuid, colorMode, resolution, fps);
       if (_camera == IntPtr.Zero) return;
       CLEyeCameraGetFrameDimensions(_camera, ref w, ref h);
-      _bitmap = IsIndexed(colorMode) ? CreateGrayscaleBitmap(w, h) : CreateBitmap(w, h);
 
       foreach (var parameter in parameters ?? new Dictionary<CLEyeCameraParameter, int>())
       {
@@ -90,14 +88,23 @@ namespace CLEye
       CLEyeCameraLED(_camera, on);
     }
 
-    private Bitmap CreateGrayscaleBitmap(int w, int h)
+    public Bitmap CreateBitmap(int w, int h, out IntPtr ptr, CLEyeCameraColorMode colorMode)
+    {
+      var result = IsIndexed(colorMode)
+        ? CreateGrayscaleBitmap(w, h, out ptr)
+        : CreateColorBitmap(w, h, out ptr);
+      _bitmaps.Add(ptr);
+      return result;
+    }
+
+    public Bitmap CreateGrayscaleBitmap(int w, int h, out IntPtr ptr)
     {
       // allocate bitmap memory
-      _ptrBmpPixels = Marshal.AllocHGlobal(w * h);
-      RtlZeroMemory(_ptrBmpPixels, w * h);
+      ptr = Marshal.AllocHGlobal(w * h);
+      RtlZeroMemory(ptr, w * h);
 
       // create bitmap object
-      var bmpGraph = new Bitmap(w, h, w, PixelFormat.Format8bppIndexed, _ptrBmpPixels);
+      var bmpGraph = new Bitmap(w, h, w, PixelFormat.Format8bppIndexed, ptr);
 
       // setup gray-scale palette
       var grayPalette = bmpGraph.Palette;
@@ -108,26 +115,22 @@ namespace CLEye
       // set bitmap to the picture box
       return bmpGraph;
     }
-    private Bitmap CreateBitmap(int w, int h)
+    public Bitmap CreateColorBitmap(int w, int h, out IntPtr ptr)
     {
       // allocate bitmap memory
-      _ptrBmpPixels = Marshal.AllocHGlobal(w * h * 4);
-      RtlZeroMemory(_ptrBmpPixels, w * h * 4);
+      ptr = Marshal.AllocHGlobal(w * h * 4);
+      RtlZeroMemory(ptr, w * h * 4);
 
       // create bitmap object
-      var bmpGraph = new Bitmap(w, h, w * 4, PixelFormat.Format32bppRgb, _ptrBmpPixels);
+      var bmpGraph = new Bitmap(w, h, w * 4, PixelFormat.Format32bppRgb, ptr);
 
       // set bitmap to the picture box
       return bmpGraph;
     }
 
-    public Bitmap Capture()
+    public bool Capture(IntPtr ptr)
     {
-      if (_camera != IntPtr.Zero && CLEyeCameraGetFrame(_camera, _ptrBmpPixels, 500))
-      {
-        return _bitmap;
-      }
-      return null;
+      return _camera != IntPtr.Zero && CLEyeCameraGetFrame(_camera, ptr, 500);
     }
 
     public void Stop()
@@ -135,7 +138,11 @@ namespace CLEye
       if (_camera == IntPtr.Zero) return;
       CLEyeCameraStop(_camera);
       CLEyeDestroyCamera(_camera);
-      Marshal.FreeHGlobal(_ptrBmpPixels);
+      foreach (var bitmap in _bitmaps)
+      {
+        Marshal.FreeHGlobal(bitmap);
+      }
+      _bitmaps.Clear();
       _camera = IntPtr.Zero;
     }
 

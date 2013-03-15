@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CLEyeTester", "CLEyeTester\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{0F4FFA2C-0F02-4923-B97F-24EAA154DE9C}"
 	ProjectSection(SolutionItems) = preProject
+		libs\AForge.dll = libs\AForge.dll
+		libs\AForge.Video.dll = libs\AForge.Video.dll
 		libs\AForge.Video.FFMPEG.dll = libs\AForge.Video.FFMPEG.dll
 	EndProjectSection
 EndProject
